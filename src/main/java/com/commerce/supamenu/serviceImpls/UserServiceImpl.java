@@ -32,8 +32,9 @@ public class UserServiceImpl implements IUserService {
         if(req.getRole() != null){
             // get the role
             role = roleRepository.findByRole(req.getRole()).orElseThrow(() -> new BadRequestException("Role not found"));
+        }else{
+            role = roleRepository.findByRole(ERole.ROLE_CUSTOMER).orElseThrow(() -> new BadRequestException("Role not found"));
         }
-        role = roleRepository.findByRole(ERole.ROLE_CUSTOMER).orElseThrow(() -> new BadRequestException("Role not found"));
 
         // create the user
         User user = new User();
@@ -43,9 +44,7 @@ public class UserServiceImpl implements IUserService {
         user.setPassword(Utility.hash(req.getPassword()));
         user.setRole(role);
         user.setPhoneNumber(req.getPhoneNumber());
-        if(role.getRole() == ERole.ROLE_CUSTOMER){
-            user.setOrders(new ArrayList<>());
-        }
+        user.setOrders(new ArrayList<>());
 
         // save the user
         userRepository.save(user);

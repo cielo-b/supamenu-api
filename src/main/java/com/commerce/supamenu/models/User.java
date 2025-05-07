@@ -46,8 +46,11 @@ public class User extends InitiatorAudit {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "is_enabled")
+    private boolean isEnabled;
+
     @NotNull
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 

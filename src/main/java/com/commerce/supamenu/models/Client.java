@@ -1,5 +1,6 @@
 package com.commerce.supamenu.models;
 
+import com.commerce.supamenu.enums.EClientStatus;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -24,11 +25,17 @@ public class Client {
     @Column(name = "client_name", nullable = false)
     private String clientName;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "representative")
     private String representative;
 
     @Column(name = "bank_accnt")
     private String bankAccount;
+
+    @Enumerated(EnumType.STRING)
+    private EClientStatus status;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("client-restaurants")

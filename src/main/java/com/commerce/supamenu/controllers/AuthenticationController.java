@@ -17,12 +17,12 @@ public class AuthenticationController {
     private final IAuthenticationService authenticationService;
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<AuthResponse>> login(@RequestBody @Valid LoginRequest request) {
+    public ResponseEntity<ApiResponse<AuthResponse>> login(@Valid @RequestBody LoginRequest request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
     @PutMapping("/change-password")
-    public ResponseEntity<ApiResponse<String>> changePassword(@RequestBody @Valid ChangePasswordRequest request) {
+    public ResponseEntity<ApiResponse<String>> changePassword(@Valid @RequestBody ChangePasswordRequest request) {
         return ResponseEntity.ok(authenticationService.changePassword(request));
     }
 }

@@ -3,7 +3,9 @@ package com.commerce.supamenu.dto.requests.user;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
+@Data
 public class UserUpdateRequest {
     @NotBlank(message = "First name is required")
     @Size(max = 50, message = "First name cannot exceed 50 characters")

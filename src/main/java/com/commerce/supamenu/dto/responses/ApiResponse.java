@@ -49,6 +49,15 @@ public class ApiResponse<T> {
         return response;
     }
 
+    public static <T> ApiResponse<T> success(String msg,T data) {
+        ApiResponse<T> response = new ApiResponse<>();
+        response.setSuccess(true);
+        response.setData(data);
+        response.setMessage(msg);
+        response.setTimestamp(LocalDateTime.now().toString());
+        return response;
+    }
+
     public static <T> ApiResponse<T> fail(String message) {
         ApiResponse<T> response = new ApiResponse<>();
         response.setSuccess(false);
