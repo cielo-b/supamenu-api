@@ -1,6 +1,8 @@
 package com.commerce.supamenu.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,16 +11,17 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "client")
+@Table(name = "clients", indexes = @Index(columnList = "client_name"))
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name = "client_name")
+    @NotBlank(message = "Client name is required")
+    @Column(name = "client_name", nullable = false)
     private String clientName;
 
     @Column(name = "representative")
@@ -27,6 +30,7 @@ public class Client {
     @Column(name = "bank_accnt")
     private String bankAccount;
 
-    @OneToMany
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("client-restaurants")
     private Set<Restaurant> restaurants;
 }
