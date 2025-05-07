@@ -2,6 +2,8 @@ package com.commerce.supamenu.helpers;
 
 import com.commerce.supamenu.dto.responses.client.ClientResponse;
 import com.commerce.supamenu.dto.responses.client.ClientSummaryResponse;
+import com.commerce.supamenu.dto.responses.menu.MenuResponse;
+import com.commerce.supamenu.dto.responses.menu.item.MenuItemResponse;
 import com.commerce.supamenu.dto.responses.order.OrderResponse;
 import com.commerce.supamenu.dto.responses.order.OrderSummaryResponse;
 import com.commerce.supamenu.dto.responses.order.item.OrderItemResponse;
@@ -127,16 +129,6 @@ public class Converters {
         return response;
     }
 
-    public static PhotoResponse convertToPhotoResponse(Photo photo) {
-        if (photo == null) return null;
-
-        PhotoResponse response = new PhotoResponse();
-        response.setId(photo.getId());
-        response.setUrl(photo.getUrl());
-        response.setUploadedAt(photo.getCreatedAt());
-        return response;
-    }
-
     public static ClientSummaryResponse convertToClientSummaryResponse(Client client) {
         if (client == null) return null;
 
@@ -194,5 +186,47 @@ public class Converters {
         return items.stream()
                 .map(Converters::convertToOrderItemResponse)
                 .collect(Collectors.toSet());
+    }
+
+    public static MenuResponse convertToMenuResponse(Menu menu) {
+        if (menu == null) return null;
+
+        MenuResponse response = new MenuResponse();
+        response.setId(menu.getId());
+        response.setRestaurant(convertToRestaurantSummaryResponse(menu.getRestaurant()));
+        response.setItems(convertToMenuItemResponses(menu.getItems()));
+        response.setCreatedAt(menu.getCreatedAt());
+        response.setUpdatedAt(menu.getUpdatedAt());
+        return response;
+    }
+
+    public static MenuItemResponse convertToMenuItemResponse(MenuItem item) {
+        if (item == null) return null;
+
+        MenuItemResponse response = new MenuItemResponse();
+        response.setId(item.getId());
+        response.setName(item.getName());
+        response.setPrice(item.getPrice());
+        response.setCategory(item.getCategory());
+        response.setDescription(item.getDescription());
+        response.setPhoto(convertToPhotoResponse(item.getPhoto()));
+        return response;
+    }
+
+    // Supporting conversion methods
+    private static Set<MenuItemResponse> convertToMenuItemResponses(Collection<MenuItem> items) {
+        return items.stream()
+                .map(Converters::convertToMenuItemResponse)
+                .collect(Collectors.toSet());
+    }
+
+    // Photo conversion (already exists)
+    public static PhotoResponse convertToPhotoResponse(Photo photo) {
+        if (photo == null) return null;
+
+        PhotoResponse response = new PhotoResponse();
+        response.setId(photo.getId());
+        response.setUrl(photo.getUrl());
+        return response;
     }
 }
