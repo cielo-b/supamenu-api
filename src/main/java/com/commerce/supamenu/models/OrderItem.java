@@ -30,6 +30,10 @@ public class OrderItem extends InitiatorAudit {
     @Column(name = "price", nullable = false)
     private double price;
 
+    @Positive
+    @Column(name = "quantity", nullable = false)
+    private int quantity;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

@@ -7,5 +7,4 @@ public class RestaurantFilterRequest {
     private ERestaurantCategory category;
     private String location;
     private Boolean openNow;
-    private Double minRating;
 }

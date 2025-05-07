@@ -2,7 +2,9 @@ package com.commerce.supamenu.dto.requests.registration;
 
 import com.commerce.supamenu.enums.ERole;
 import jakarta.validation.constraints.*;
+import lombok.Data;
 
+@Data
 public class RegisterRequest {
     @NotBlank(message = "First name is required")
     @Size(max = 50, message = "First name cannot exceed 50 characters")
@@ -28,6 +30,5 @@ public class RegisterRequest {
     @Pattern(regexp = "^\\+?[0-9\\-\\s]+$", message = "Invalid phone number format")
     private String phoneNumber;
 
-    @NotNull(message = "Role name is required")
     private ERole role;
 }
