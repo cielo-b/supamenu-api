@@ -2,9 +2,11 @@ package com.commerce.supamenu.dto.requests.menu.item;
 
 import com.commerce.supamenu.enums.EItemCategory;
 import jakarta.validation.constraints.*;
+import lombok.Data;
 
 import java.util.UUID;
 
+@Data
 public class MenuItemRequest {
     @NotNull(message = "Category is required")
     private EItemCategory category;
