@@ -1,5 +1,6 @@
 package com.commerce.supamenu.models;
 
+import com.commerce.supamenu.audit.InitiatorAudit;
 import com.commerce.supamenu.enums.ERestaurantCategory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Restaurant {
+public class Restaurant extends InitiatorAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;

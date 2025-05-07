@@ -1,7 +1,7 @@
 package com.commerce.supamenu.models;
 
 import com.commerce.supamenu.audit.InitiatorAudit;
-import com.commerce.supamenu.enums.EPaymentMethod;
+import com.commerce.supamenu.enums.EItemCategory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,27 +10,27 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 @Entity
-@Table(name = "payment")
+@Table(name = "menu_item")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Payment extends InitiatorAudit {
+public class MenuItem extends InitiatorAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name = "is_credit")
-    private Boolean isCredit;
-
     @Enumerated(EnumType.STRING)
-    private EPaymentMethod method;
+    private EItemCategory category;
 
-    @ManyToOne
-    private User user;
+    @Column(name = "name")
+    private String name;
 
-    @ManyToOne
-    private Restaurant restaurant;
+    @Column(name = "price")
+    private Double price;
 
-    @ManyToOne
-    private Order order;
+    @Column(name = "description", nullable = true)
+    private String description;
+
+    @OneToOne
+    private Photo photo;
 }
